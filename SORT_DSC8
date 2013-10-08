@@ -1,0 +1,23 @@
+	LXI H, 3000H
+	MOV B, M
+	DCR B
+L1:	LXI H, 3001H
+	LXI D, 3001H
+	MOV A, M
+	MOV C, B
+L2:	INX H
+	CMP M
+	JC L3
+	MOV A, M
+	MOV D, H
+	MOV E, L
+L3:	DCR C
+	JNZ L2
+	MOV C, A
+	MOV A, M
+	MOV M, C
+	XCHG
+	MOV M, A
+	DCR B
+	JNZ L1
+	HLT

@@ -1,0 +1,62 @@
+;A in algo is my H
+;Q is L
+;M is B
+;Counter is C
+
+;2500 -> Q
+;2501 -> M
+
+
+;code
+;09C4h -> 2500
+LHLD 09C4H
+MOV B, H
+ANI 00
+MVI C, 08
+MVI H, 00
+
+
+;CHECK FOR Q0
+L1: MOV A, L
+JNC AUX1
+ANI 01	
+STC
+JMP AUX2
+AUX1: ANI 01
+
+
+AUX2: JNZ L2
+;Q0 IS 0
+JNC L3
+;01
+MOV A, H
+ADD B
+MOV H, A
+
+
+;Q0 IS 1
+L2: JC L3
+;10
+MOV A, H
+SUB B
+MOV H, A
+
+
+L3: MOV A, H
+ANI 80H
+STC
+JNZ L4
+CMC
+L4: MOV A, H
+RAR
+MOV H, A
+MOV A, L
+RAR
+MOV L, A
+
+
+DCR C
+JNZ L1
+
+SHLD 09C6H
+HLT
